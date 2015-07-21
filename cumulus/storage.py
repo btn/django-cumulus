@@ -184,9 +184,9 @@ class SwiftclientStorage(Auth, Storage):
         path_len = len(path)
         try:
             names = [x["name"] for x in
-                     self.connection.get_container(self.container_name, full_listing=True)[1]]
+                     self.connection.get_container(self.container_name, full_listing=True, prefix=path)[1]]
         except Exception:
-            names = [x.name for x in self.container.list_all()]
+            names = [x.name for x in self.container.list_all(prefix=path)]
 
         for name in names:
             files.append(name[path_len:])
@@ -205,9 +205,9 @@ class SwiftclientStorage(Auth, Storage):
         path_len = len(path)
         try:
             names = [x["name"] for x in
-                     self.connection.get_container(self.container_name, full_listing=True)[1]]
+                     self.connection.get_container(self.container_name, full_listing=True, prefix=path)[1]]
         except Exception:
-            names = [x.name for x in self.container.list_all()]
+            names = [x.name for x in self.container.list_all(prefix=path)]
 
         for name in names:
             name = name[path_len:]
